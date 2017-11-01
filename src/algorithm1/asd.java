@@ -1,5 +1,8 @@
 package algorithm1;
 
+/*
+ * 字符串回文算法
+ */
 public class asd {
 
 	public static void main(String[] args) {
