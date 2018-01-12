@@ -6,7 +6,6 @@ package RSA;
  * base64 编解码
  * 这里只用到了编码
  */
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -20,8 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.Cipher;
-
-import sun.misc.BASE64Encoder;
 
 /*
  * 公私钥生成工具类
@@ -44,19 +41,16 @@ public class RSASecrteKey {
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         
-        String publicKeyBASE64 = encryptBASE64(publicKey);
-        String privateKeyBASE64 = encryptBASE64(privateKey);
+        // 得到公钥字符串  
+        String publicKeyBASE64 = Base64.encode(publicKey.getEncoded());  
+        // 得到私钥字符串  
+        String privateKeyBASE64 = Base64.encode(privateKey.getEncoded());  
         
         //公私钥对象存入map中
         Map<String, String> keyMap = new HashMap<String, String>(2);
         keyMap.put(PUBLIC_KEY, publicKeyBASE64);
         keyMap.put(PRIVATE_KEY, privateKeyBASE64);
         return keyMap;
-    }
-
-    //编码返回字符串
-    public static String encryptBASE64(Key key) throws Exception {
-        return (new BASE64Encoder()).encodeBuffer(key.getEncoded());
     }
     
     /** 
